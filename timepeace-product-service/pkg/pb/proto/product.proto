@@ -1,0 +1,72 @@
+syntax="proto3";
+
+package pb;
+
+option go_package="./pkg/pb";
+
+service ProductService{
+   rpc AddProduct(AddProductRequest) returns (AddProductResponse) {}
+   rpc ListProducts(ListProductRequest) returns (ListProductResponse){}
+   rpc ProductDetails (ProductDetailsRequest) returns (ProductDetailsResponse) {}
+   rpc FetchProduct (FetchProductRequest) returns (FetchProductResponse) {}
+}
+
+
+
+message AddProductRequest {
+    string name = 1;
+    string description = 2;
+    uint32 quantity = 3;
+    double price = 4;
+    double discount = 5;
+    uint32 category = 6;
+    uint32 brand = 7;
+}
+
+message AddProductResponse{
+    string error=1;
+}
+
+message ListProductRequest{
+    int32 page=1;
+    int32 count=2;
+}
+
+
+message ProductDetail{
+    uint64 id=1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+    double discount = 5;
+    string category = 6;
+    string brand = 7;
+    double sellingPrice=8;
+    string status=9;
+}
+
+message ListProductResponse{
+    repeated ProductDetail products=1;
+}
+
+message ProductDetailsRequest{
+    repeated uint64 id=1;
+}
+
+
+
+message ProductDetailsResponse{
+    repeated FetchProductResponse products=1; 
+}
+
+message FetchProductRequest{
+    uint64 id=1;
+}
+
+message FetchProductResponse{
+    uint64 id=1;
+    string name=2;
+    string description=3;
+    uint32 quantity=4;
+    double sellingPrice=5;
+}
